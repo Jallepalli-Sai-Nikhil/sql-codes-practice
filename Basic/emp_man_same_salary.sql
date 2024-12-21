@@ -1,3 +1,3 @@
 use NikDB;
 
-select * from Employee;vbnv
+select * from Employee; 
