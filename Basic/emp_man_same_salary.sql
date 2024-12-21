@@ -1,3 +1,3 @@
 use NikDB;
 
-select * from Employee; gh
+select * from Employee;
