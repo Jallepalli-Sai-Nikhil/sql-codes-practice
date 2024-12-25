@@ -33,7 +33,14 @@
 29. **Determine the department with the highest percentage of employees earning above the 75th percentile.**
 30. **Find employees whose salaries have consistently increased over time.**
 
-# Swiggy Interview Questions
+# Company-Wise playlists
 
-1. We want to identify cases where `stock_quantity` is less than 50 for at least **two consecutive days**.
-2.
+* [ ]  Nishtha Nagar
+* [ ]  Ankit Bansal
+* [ ]  Decoding Analytics
+* [ ]  Zero Analytics
+* [ ]  Deepankar pathak
+* [ ]  The sarthak show
+* [ ]  Data project hub
+* [ ]  cloud challengers
+* [ ]
