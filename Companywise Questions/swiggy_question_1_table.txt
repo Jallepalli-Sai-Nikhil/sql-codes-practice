@@ -1,0 +1,50 @@
+CREATE TABLE supplier_inventory (
+    supplier_id NVARCHAR(50),
+    product_id NVARCHAR(50),
+    stock_quantity INT,
+    record_date DATE
+);
+
+INSERT INTO supplier_inventory (supplier_id, product_id, stock_quantity, record_date)
+VALUES 
+('supplier1', 'product1', 60, '2022-01-01'),
+('supplier1', 'product1', 50, '2022-01-02'),
+('supplier1', 'product1', 35, '2022-01-03'),
+('supplier1', 'product1', 45, '2022-01-04'),
+('supplier1', 'product2', 40, '2022-01-07'),
+('supplier1', 'product2', 45, '2022-01-08');
+
+# We want to identify cases where stock_quantity is less than 50 for at least two consecutive days.
+
+
+WITH CTE AS (
+    SELECT 
+        supplier_id,
+        product_id,
+        stock_quantity,
+        record_date,
+        LAG(record_date) OVER (PARTITION BY supplier_id, product_id ORDER BY record_date) AS prev_date
+    FROM supplier_inventory
+    WHERE stock_quantity < 50
+),
+Consecutive_Days AS (
+    SELECT 
+        supplier_id,
+        product_id,
+        stock_quantity,
+        record_date,
+        prev_date,
+        DATEDIFF(DAY, prev_date, record_date) AS diff_days
+    FROM CTE
+),
+Filtered AS (
+    SELECT 
+        supplier_id,
+        product_id,
+        MIN(record_date) AS start_date
+    FROM Consecutive_Days
+    WHERE diff_days = 1
+    GROUP BY supplier_id, product_id
+)
+SELECT supplier_id, product_id, start_date
+FROM Filtered;
